@@ -9,17 +9,21 @@ class TokenManager:
     A class to manage API tokens for MTN MoMo.
     """
 
-    def __init__(self):
+    def __init__(self, token_dir=None):
         """
         Initialize the class instance.
 
         This constructor sets up the file path for the token file and defines the URI for token-related requests.
 
+        :param token_dir: Optional; The directory where the token file is stored. If not provided, it defaults to the current module's directory.
         :attribute token_file: The path to the token file, stored in the current module's directory.
         :attribute TOKEN_URI : The URI used for token-related API requests.
         """
         
-        self.token_file = os.path.join(os.path.dirname(__file__), '/token.json')
+        if token_dir is None:
+            token_dir = os.path.dirname(__file__)
+        
+        self.token_file = os.path.join(token_dir, 'token.json')
         self.TOKEN_URI = "/token/"
 
     def get_token(self, config, product):
